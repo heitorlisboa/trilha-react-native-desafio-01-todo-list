@@ -32,6 +32,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     flexShrink: 1,
+    flexGrow: 1,
     fontFamily: theme.fonts.regular,
     fontSize: 14,
     lineHeight: 14 * 1.4,
