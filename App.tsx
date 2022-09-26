@@ -1,3 +1,6 @@
+// Dependency for uuid
+import 'react-native-get-random-values';
+
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import {

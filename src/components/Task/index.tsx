@@ -6,9 +6,17 @@ import { theme } from '../../theme';
 
 import type { TaskData } from '../../types';
 
-type TaskProps = TaskData;
+type TaskProps = Omit<TaskData, 'id'> & {
+  onToggleTaskCompletion: () => void;
+  onDeleteTask: () => void;
+};
 
-export function Task({ id, title, isComplete }: TaskProps) {
+export function Task({
+  title,
+  isComplete,
+  onToggleTaskCompletion,
+  onDeleteTask,
+}: TaskProps) {
   return (
     <View
       style={[
@@ -18,6 +26,7 @@ export function Task({ id, title, isComplete }: TaskProps) {
     >
       <Pressable
         style={styles.toggleButton}
+        onPress={onToggleTaskCompletion}
         accessibilityLabel="Concluir tarefa"
         accessibilityState={{ checked: isComplete }}
       >
@@ -49,6 +58,7 @@ export function Task({ id, title, isComplete }: TaskProps) {
           styles.deleteButton,
           { backgroundColor: pressed ? theme.colors.gray[400] : 'transparent' },
         ]}
+        onPress={onDeleteTask}
         accessibilityLabel="Deletar tarefa"
       >
         {({ pressed }) => (

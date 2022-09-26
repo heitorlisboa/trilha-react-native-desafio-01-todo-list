@@ -8,40 +8,17 @@ import type { TaskData } from '../../types';
 
 import { Task } from '../Task';
 
-const tasks: TaskData[] = [
-  {
-    id: '1',
-    title:
-      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-    isComplete: false,
-  },
-  {
-    id: '2',
-    title:
-      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-    isComplete: false,
-  },
-  {
-    id: '3',
-    title:
-      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-    isComplete: false,
-  },
-  {
-    id: '4',
-    title:
-      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-    isComplete: true,
-  },
-  {
-    id: '5',
-    title:
-      'Integer urna interdum massa libero auctor neque turpis turpis semper.',
-    isComplete: true,
-  },
-];
+type TaskListProps = {
+  tasks: TaskData[];
+  onToggleTaskCompletion: (taskId: string) => void;
+  onDeleteTask: (taskId: string) => void;
+};
 
-export function TaskList() {
+export function TaskList({
+  tasks,
+  onToggleTaskCompletion,
+  onDeleteTask,
+}: TaskListProps) {
   const numberOfTasksCompleted = tasks.reduce((accumulator, currentTask) => {
     if (currentTask.isComplete) return accumulator + 1;
     else return accumulator;
@@ -53,7 +30,12 @@ export function TaskList() {
       data={tasks}
       keyExtractor={({ id }) => id}
       renderItem={({ item: { id, title, isComplete } }) => (
-        <Task id={id} title={title} isComplete={isComplete} />
+        <Task
+          title={title}
+          isComplete={isComplete}
+          onToggleTaskCompletion={() => onToggleTaskCompletion(id)}
+          onDeleteTask={() => onDeleteTask(id)}
+        />
       )}
       ListHeaderComponent={
         <View style={styles.header}>
